@@ -22,6 +22,8 @@ class Flag(models.Model):
     everyone = models.NullBooleanField(blank=True, help_text=(
         'Flip this flag on (Yes) or off (No) for everyone, overriding all '
         'other settings. Leave as Unknown to use normally.'))
+    function = models.TextField(blank=True, default='', help_text=(
+        'Path to function that if returns True flag will be active.'))
     percent = models.DecimalField(max_digits=3, decimal_places=1, null=True,
                                   blank=True, help_text=(
         'A number between 0.0 and 99.9 to indicate a percentage of users for '

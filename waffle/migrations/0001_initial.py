@@ -25,6 +25,7 @@ class Migration(migrations.Migration):
                 ('superusers', models.BooleanField(default=True, help_text=b'Flag always active for superusers?')),
                 ('staff', models.BooleanField(default=False, help_text=b'Flag always active for staff?')),
                 ('authenticated', models.BooleanField(default=False, help_text=b'Flag always active for authenticate users?')),
+                ('function', models.TextField(default=b'', help_text=b'Path to function that if returns True flag will be active.', blank=True)),
                 ('languages', models.TextField(default=b'', help_text=b'Activate this flag for users with one of these languages (comma separated list)', blank=True)),
                 ('rollout', models.BooleanField(default=False, help_text=b'Activate roll-out mode?')),
                 ('note', models.TextField(help_text=b'Note where this Flag is used.', blank=True)),

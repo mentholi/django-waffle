@@ -1,5 +1,6 @@
 from decimal import Decimal
 import random
+import importlib
 
 from waffle.utils import get_setting, keyfmt
 
@@ -37,6 +38,18 @@ def flag_is_active(request, flag_name):
     if get_setting('OVERRIDE'):
         if flag_name in request.GET:
             return request.GET[flag_name] == '1'
+
+    if flag.function:
+        try:
+            mod_name, func_name = flag.function.rsplit('.',1)
+            mod = importlib.import_module(mod_name)
+            func = getattr(mod, func_name)
+        except (AttributeError, ImportError) as ae:
+            pass
+        else:
+            result = func(request)
+            if result is not None:
+                return result
 
     if flag.everyone:
         return True
